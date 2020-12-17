@@ -182,10 +182,10 @@ public class Student extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 448));
+        setSize(new java.awt.Dimension(416, 462));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

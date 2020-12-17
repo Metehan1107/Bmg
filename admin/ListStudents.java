@@ -1,52 +1,55 @@
-package admin;
-
-
-import student.*;
-import main.DbHelper;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package admin;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import main.DbHelper;
+
 /**
  *
  * @author hasan
  */
-public class ListBooks extends javax.swing.JFrame {
 
+
+
+public class ListStudents extends javax.swing.JFrame {
+    
     Connection connection;
     ResultSet resultSet;
     PreparedStatement preparedStatement;
 
-    public ListBooks() {
-        super("List Books");
-        initComponents();
-        connection = DbHelper.ConnectDb();
+    /**
+     * Creates new form ListStudents
+     */
+    public ListStudents() {
+       super("List Students");
+       initComponents();
+       connection = DbHelper.ConnectDb();
     }
-
+    
     public void table() {
         try {
-            String sql = "select * from Book";
+            String sql = "select * from student";
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String book_id = resultSet.getString("book_id");
+                String student_id = resultSet.getString("student_id");
                 String name = resultSet.getString("name");
-                String edition = resultSet.getString("edition");
-                String writer = resultSet.getString("writer");
-                String price = resultSet.getString("price");
-                String pages = resultSet.getString("pages");
+                String father_name = resultSet.getString("father_name");
+                String division = resultSet.getString("division");
+                String year = resultSet.getString("year");
+              
 
-                String tbData[] = {book_id, name, edition, writer, price, pages};
-                DefaultTableModel tblModel = (DefaultTableModel) table_book.getModel();
+                String tbData[] = {student_id, name, father_name, division, year};
+                DefaultTableModel tblModel = (DefaultTableModel) table_student.getModel();
 
                 tblModel.addRow(tbData);
 
@@ -67,33 +70,26 @@ public class ListBooks extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_book = new javax.swing.JTable();
+        table_student = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        table_book.setAutoCreateRowSorter(true);
-        table_book.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        table_book.setModel(new javax.swing.table.DefaultTableModel(
+        table_student.setAutoCreateRowSorter(true);
+        table_student.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        table_student.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Book ID", "Name", "Edition", "Writer", "Price", "Pages"
+                "Student ID", "Name", "Father Name", "Division", "Year"
             }
         ));
-        table_book.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_bookMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(table_book);
+        jScrollPane1.setViewportView(table_student);
 
-        btnBack.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(0, 51, 255));
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,39 +101,26 @@ public class ListBooks extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(436, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(btnBack)
-                .addGap(23, 23, 23))
-            .addComponent(jScrollPane1)
+                .addGap(0, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
-        setSize(new java.awt.Dimension(632, 535));
+        setSize(new java.awt.Dimension(696, 357));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void table_bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_bookMouseClicked
-        
-        DefaultTableModel tblModel = (DefaultTableModel) table_book.getModel();
-        
-        String book_id = tblModel.getValueAt(table_book.getSelectedRow(), 0).toString();
-        String name = tblModel.getValueAt(table_book.getSelectedRow(), 1).toString();
-        String edition = tblModel.getValueAt(table_book.getSelectedRow(), 2).toString();
-        String writer = tblModel.getValueAt(table_book.getSelectedRow(), 3).toString();
-        String price = tblModel.getValueAt(table_book.getSelectedRow(), 4).toString();
-        String pages = tblModel.getValueAt(table_book.getSelectedRow(), 5).toString();
-        
-        
-        
-    }//GEN-LAST:event_table_bookMouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         setVisible(false);
@@ -162,29 +145,27 @@ public class ListBooks extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListBooks().setVisible(true);
+                new ListStudents().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table_book;
+    private javax.swing.JTable table_student;
     // End of variables declaration//GEN-END:variables
 }
